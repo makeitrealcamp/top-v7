@@ -38,29 +38,51 @@ const str = 'hola mundo'
 // console.log(str.indexOf('h'))
 // console.log(str.hasOwnProperty('length'))
 
-function Person(name, age) {
-  this.name = name
-  this.age = age
-}
+// function Person(name, age) {
+//   this.name = name
+//   this.age = age
+// }
 
-Person.prototype.greet = function() {
-  return 'Hola mi nombre es ' + this.name
+// Person.prototype.greet = function() {
+//   return 'Hola mi nombre es ' + this.name
+// }
+
+// Syntatic sugar
+class Person {
+  constructor(name, age) {
+    this.name = name
+    this.age = age
+  }
+
+  greet() {
+    return 'Hola mi nombre es ' + this.name
+  }
 }
 
 const pedro = new Person('Pedro', 50)
-// console.log(pedro)
-// console.log(pedro.greet())
+console.log(pedro)
+console.log(pedro.greet())
 const juana = new Person('Juana', 50)
-// console.log(juana)
-// console.log(juana.greet())
+console.log(juana)
+console.log(juana.greet())
 
-function Teacher(name, age, lesson) {
-  Person.call(this, name, age)
-  this.lesson = lesson
+// function Teacher(name, age, lesson) {
+//   Person.call(this, name, age)
+//   this.lesson = lesson
+// }
+
+// Teacher.prototype = new Person()
+// Teacher.prototype.constructor = Teacher
+
+class Teacher extends Person {
+  constructor(name, age, lesson) {
+    // this = { __proto__: Teacher, lesson: lesson, name: name, age: age  }
+    super(name, age)
+    this.lesson = lesson
+
+    // return this
+  }
 }
-
-Teacher.prototype = new Person()
-Teacher.prototype.constructor = Teacher
 
 const simon = new Teacher('Simon', 29, 'Top v7')
 console.log(simon)
