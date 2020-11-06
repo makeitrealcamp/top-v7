@@ -1,0 +1,11 @@
+.Button {
+  padding: 5px 15px;
+  border: none;
+  background-color: blue;
+  color: white;
+  box-shadow: 0 5px 10px 0 #333;
+}
+
+/* .App { */
+/*   text-align: right; */
+/* } */
