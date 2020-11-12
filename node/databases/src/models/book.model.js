@@ -4,7 +4,7 @@ const bookSchema = new Schema({
   title: String,
   overview: [String],
   rating: Number,
-  isNew: Boolean,
+  new: Boolean,
   published: Date,
 }, {
   timestamps: true,
