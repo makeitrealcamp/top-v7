@@ -32,7 +32,9 @@ class App extends React.Component {
   componentDidMount() {
     axios({
       method: 'GET',
-      url: 'https://jsonplaceholder.typicode.com/posts/',
+      // url: 'https://jsonplaceholder.typicode.com/posts/',
+      baseURL: 'http://localhost:8080',
+      url: '/posts'
     })
       .then(({ data }) => {
         this.setState({
@@ -57,9 +59,10 @@ class App extends React.Component {
     return (
       <div className="App">
         {!!posts && posts.length > 0 && posts.map(post => (
-          <div className="post" key={post.id}>
+          <div className="post" key={post._id}>
             <h2>{post.title}</h2>
             <p>{post.body}</p>
+            <span>{post.author.email}</span>
           </div>
         ))}
       </div>
