@@ -29,26 +29,40 @@ class App extends React.Component {
     error: null,
   }
 
-  componentDidMount() {
-    axios({
-      method: 'GET',
-      // url: 'https://jsonplaceholder.typicode.com/posts/',
-      baseURL: 'http://localhost:8080',
-      url: '/posts'
-    })
-      .then(({ data }) => {
-        this.setState({
-          posts: data,
-          loading: false,
-        })
+  async componentDidMount() {
+    try {
+      const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts')
+      this.setState({
+        posts: data,
+        loading: false
       })
-      .catch((err) => {
-        this.setState({
-          error: err,
-          loading: false,
-        })
+    } catch(err) {
+      this.setState({
+        error: err,
+        loading: false,
       })
-      .finally(() => console.log('always'))
+    } finally {
+      console.log('always')
+    }
+    // axios({
+    //   method: 'GET',
+    //   url: 'https://jsonplaceholder.typicode.com/posts/',
+      // baseURL: 'http://localhost:8080',
+      // url: '/posts'
+    // })
+    //   .then(({ data }) => {
+    //     this.setState({
+    //       posts: data,
+    //       loading: false,
+    //     })
+    //   })
+    //   .catch((err) => {
+    //     this.setState({
+    //       error: err,
+    //       loading: false,
+    //     })
+    //   })
+    //   .finally(() => console.log('always'))
   }
 
   render() {
@@ -59,10 +73,9 @@ class App extends React.Component {
     return (
       <div className="App">
         {!!posts && posts.length > 0 && posts.map(post => (
-          <div className="post" key={post._id}>
+          <div className="post" key={post.id}>
             <h2>{post.title}</h2>
             <p>{post.body}</p>
-            <span>{post.author.email}</span>
           </div>
         ))}
       </div>
