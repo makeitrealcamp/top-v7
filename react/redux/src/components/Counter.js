@@ -25,8 +25,8 @@ function Counter({ count }) {
 //   };
 // }
 
-function mapStateToProps({ count }) {
-  return { count }
+function mapStateToProps({ countReducer: { count }}) {
+  return { count };
 }
 
 export default connect(mapStateToProps)(Counter);
