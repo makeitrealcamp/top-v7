@@ -1,13 +1,10 @@
-import axios from 'axios'
+import { jsonplaceholder } from '../utils/api'
 
 const POSTS_LOADING = 'POSTS_LOADING';
 const POSTS_SUCCESS = 'POSTS_SUCCESS';
 const POSTS_FAILURE = 'POSTS_FAILURE';
 const POSTS_FINISHED = 'POSTS_FINISHED'
 
-const jsonplaceholder = axios.create({
-  baseURL: 'https://jsonplaceholder.typicode.com'
-});
 
 export function getPosts() {
   return async function(dispatch) {
