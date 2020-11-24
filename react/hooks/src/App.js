@@ -30,18 +30,24 @@ import './App.css';
 // 3. Los hooks siempre se deben ejecutar en el primer nivel de la función.
 // 4. Los hooks siempre se nombran usando el prefijo use.
 
+function useCount(value) {
+  const [count, setCount] = useState(value)
+
+  function handleClick() {
+    setCount(count + 1)
+  }
+
+  return { count, handleClick }
+}
+
 function App() {
-  const [count, setCount] = useState(0)
+  const { count, handleClick } = useCount(0)
 
   // if(count < 3) {
   //   const [name, setName] = useState('');
   // }
   // const [age, setAge] = useState(18);
   // const [working, setWorking] = useState(false)
-
-  function handleClick() {
-    setCount(count + 1)
-  }
 
   return (
     <div className="App">

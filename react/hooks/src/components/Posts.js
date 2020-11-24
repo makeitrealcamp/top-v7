@@ -1,4 +1,4 @@
-import { Component, useState, useEffect } from 'react'
+import { Component, useState, useEffect, useReducer } from 'react'
 import axios from 'axios'
 
 // class Posts extends Component {
@@ -46,10 +46,36 @@ import axios from 'axios'
 //   }
 // }
 
-function Posts({ count }) {
-  const [posts, setPosts] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+const SET_POSTS = 'SET_POSTS'
+const SET_ERRORS = 'SET_ERRORS'
+
+function reducer(state, action) {
+  switch(action.type) {
+    case SET_POSTS:
+      return {
+        ...state,
+        posts: action.payload,
+        loading: false,
+      };
+    case SET_ERRORS:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+      }
+    default:
+      return state;
+  }
+}
+
+const initialState = {
+  posts: [],
+  loading: true,
+  error: null
+}
+
+function usePosts() {
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   useEffect(() => {
     axios({
@@ -58,18 +84,22 @@ function Posts({ count }) {
       url: 'posts',
     })
       .then(({ data }) => {
-        setPosts(data)
-        setLoading(false)
+        dispatch({ type: SET_POSTS, payload: data })
       })
       .catch(err => {
-        setError(err)
-        setLoading(false)
+        dispatch({ type: SET_ERRORS, payload: err })
       })
 
     return () => {
       console.log('unmounting...')
     }
   }, [])
+
+  return state;
+}
+
+function Posts({ count }) {
+  const { loading, error, posts } = usePosts();
 
   function handleResize(e) {
     console.log(e.target.innerWidth)
@@ -82,7 +112,6 @@ function Posts({ count }) {
       window.removeEventListener('resize', handleResize)
     }
   }, [])
-
 
   if(loading) return <p>loading...</p>
   if(error) return <p>Something went wrong</p>
