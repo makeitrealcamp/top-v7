@@ -5,6 +5,7 @@ import { INCREMENT, DECREMENT, increment } from './store/countReducer';
 import './App.css';
 import TextArea from './components/TextArea';
 import Text from './components/Text';
+import Posts from './components/Posts';
 
 function App({ increment, decrement }) {
   return (
@@ -14,6 +15,7 @@ function App({ increment, decrement }) {
       <Button onClick={decrement}>Decrement</Button>
       <TextArea />
       <Text />
+      <Posts />
     </div>
   );
 }
