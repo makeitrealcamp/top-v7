@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tasksbackenddeployment
+spec:
+  selector:
+    matchLabels:
+      app: tasksbackendlabel
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: tasksbackendlabel
+    spec:
+      containers:
+        - name: tasksbackend
+          imagePullPolicy: Never
+          image: simonhoyos/tasks-backend
+          ports:
+            - containerPort: 8000
+          env:
+            - name: PORT
+              value: "8000"
+            - name: MONGO_URI
+              value: "mongodb://localhost:27017/tasks"
