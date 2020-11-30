@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tasksbackendservice
+spec:
+  selector:
+    app: tasksbackendlabel
+  type: LoadBalancer
+  ports:
+    - name: tasksbackendport
+      port: 80
+      targetPort: 8000
+  externalIPs:
+    - 127.0.0.1

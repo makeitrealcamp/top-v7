@@ -22,4 +22,4 @@ spec:
             - name: PORT
               value: "8000"
             - name: MONGO_URI
-              value: "mongodb://localhost:27017/tasks"
+              value: "mongodb://tasksdatabaseservice:27017/tasks"

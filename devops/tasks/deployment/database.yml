@@ -1,0 +1,62 @@
+# kubectl exec -it tasksdatabasestatefulset-0 -c tasks-database -- mongo --eval 'rs.initiate({ _id: "MainRepSet", version: 1, members: [ { _id: 0, host: "tasksdatabasestatefulset-0.tasksdatabaseservice.default.svc.cluster.local:27017" } ] })'
+# kubectl exec tasksdatabasestatefulset-0 -c tasks-database -- mongo --eval 'db.getSiblingDB("admin").createUser({ user: "main_admin", pwd: "12345", roles: [ { role: "root", db: "admin" } ] });'
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: tasksdatabasestatefulset
+spec:
+  serviceName: tasksdatabaseservice
+  replicas: 1
+  selector:
+    matchLabels:
+      role: mongo
+  template:
+    metadata:
+      labels:
+        role: mongo
+        replicaSet: MainRepSet
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: replicaSet
+                      operator: In
+                      values:
+                        - MainRepSet
+                topologyKey: kubernetes.io/hostname
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: tasks-database
+          image: mongo
+          command:
+            - "mongod"
+            - "--wiredTigerCacheSizeGB"
+            - "0.1"
+            - "--bind_ip"
+            - "0.0.0.0"
+            - "--replSet"
+            - "MainRepSet"
+          resources:
+            requests:
+              cpu: 0.2
+              memory: 200Mi
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: tasksdatabasevolumeclaim
+              mountPath: /data/db
+  volumeClaimTemplates:
+    - metadata:
+        name: tasksdatabasevolumeclaim
+        annotations:
+          volume.beta.kubernetes.io/storage-class: "standard"
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 5Gi
