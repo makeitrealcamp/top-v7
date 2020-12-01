@@ -10,9 +10,14 @@ function App() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const data = new FormData();
+    const data = new FormData()
     data.append('username', username)
-    data.append('file', file, file.name)
+    if(file) {
+      console.log(typeof file)
+      for(let i = 0; i < file.length; i++) {
+        data.append(`file_${i}`, file[i], file[i].name)
+      }
+    }
 
     const response = await axios({
       method: 'POST',
@@ -39,10 +44,11 @@ function App() {
   function handleChange(e) {
     // console.dir(e.target.files)
     // console.log(e.target.files[0].size)
-    if(e.target.files.length > 0 && e.target.files[0].size < 1024 * 1024 * 5) {
-      readFile(e.target.files[0])
-      setFile(e.target.files[0])
-    }
+    // if(e.target.files.length > 0 && e.target.files[0].size < 1024 * 1024 * 5) {
+    //   readFile(e.target.files[0])
+    //   setFile(e.target.files[0])
+    // }
+    setFile(e.target.files)
   }
 
   return (
@@ -65,6 +71,7 @@ function App() {
           id="file"
           onChange={handleChange}
         />
+        <button>Enviar</button>
       </form>
       {!!image && (
         <img src={image} alt="upload preview" />
