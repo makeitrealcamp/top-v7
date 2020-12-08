@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home should match snapshot 1`] = `
+<div>
+  <div
+    class="tasks"
+  >
+    <h1>
+      Tasks
+    </h1>
+    <p>
+      No tasks created yet. Create one 
+      <a
+        href="/create"
+      >
+        here
+      </a>
+    </p>
+  </div>
+</div>
+`;
