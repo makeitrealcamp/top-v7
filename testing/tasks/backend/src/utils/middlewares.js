@@ -9,9 +9,9 @@ module.exports = {
         throw Error('Your session has expired');
       }
 
-      const token = authorization.replace('Bearer ', '');
+      const [_, token] = authorization.split(' ');
 
-      if(token === '') {
+      if(!token) {
         throw Error('Your session has expired');
       }
 

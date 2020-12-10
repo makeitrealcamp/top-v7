@@ -26,6 +26,8 @@ module.exports = {
       const { params: { id }, user } = req;
       const task = await Task.findOne({ _id: id, user });
 
+      if(!task) throw Error('You are not allowed')
+
       res.status(200).json(task);
     } catch (error) {
       res.status(400).json({ message: error.message });
@@ -52,9 +54,11 @@ module.exports = {
       const { params: { id }, user } = req;
       const task = await Task.deleteOne({ _id: id, user });
 
+      if(!task.deletedCount) throw Error('You are not allowed')
+
       res.status(200).json({ message: 'Task deleted'})
     } catch (error) {
-      res.status(400).json({ message: error.messsage })
+      res.status(400).json({ message: error.message });
     }
   }
 }
