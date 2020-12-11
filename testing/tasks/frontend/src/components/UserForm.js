@@ -19,7 +19,7 @@ export function UserForm({ handleSubmit, handleChange, email, password }) {
         onChange={handleChange}
         value={password}
       />
-      <button>Submit</button>
+      <button data-testid="signup">Submit</button>
     </form>
   )
 }
