@@ -1,0 +1,13 @@
+{
+  "name": "first-steps",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Simon Hoyos <shmesa23@gmail.com> (https://www.linkedin.com/in/simonhoyos)",
+  "license": "MIT",
+  "dependencies": {
+    "nodemailer": "^6.4.17"
+  }
+}
