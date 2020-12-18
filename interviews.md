@@ -49,3 +49,10 @@
 1. What is a container? What is it good for?
 1. What is the difference between unit and integration testing?
 1. [Fibonacci Number](https://leetcode.com/problems/fibonacci-number/)
+
+### December 18th
+
+1. What is a Pure Function?
+1. What is the Virtual DOM in React? What is it used for?
+1. What is prop drilling? How can we solve/prevent it?
+1. [Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/)
