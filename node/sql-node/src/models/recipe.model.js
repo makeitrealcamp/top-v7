@@ -21,5 +21,11 @@ module.exports = (sequelize, DataTypes) => {
 
   const Recipe = sequelize.define('Recipe', recipeSchema, recipeOps)
 
+  Recipe.associate = (db) => {
+    db.Recipe.belongsTo(db.User)
+    // db.Recipe.hasMany(db.Ingredients)
+    // db.Recipe.belongsToMany(db.User, { through: 'UserRecipe' })
+  }
+
   return Recipe
 }

@@ -23,5 +23,10 @@ module.exports = (sequelize, DataTypes) => {
 
   const User = sequelize.define('User', userSchema, userOps)
 
+  User.associate = (db) => {
+    db.User.hasMany(db.Recipe)
+    // db.User.belongsToMany(db.Recipe, { through: 'UserRecipe' })
+  }
+
   return User
 }
