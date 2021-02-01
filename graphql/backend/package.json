@@ -1,0 +1,16 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Simon Hoyos <shmesa23@gmail.com> (https://www.linkedin.com/in/simonhoyos)",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "graphql-yoga": "^1.18.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
